@@ -811,7 +811,7 @@ def setup_cluster(conn, master_nodes, slave_nodes, opts, deploy_ssh_key):
             ssh_write(slave_address, opts, ['tar', 'x'], dot_ssh_tar)
 
     modules = ['spark', 'ephemeral-hdfs', 'persistent-hdfs',
-               'mapreduce', 'spark-standalone', 'tachyon', 'rstudio']
+               'mapreduce', 'spark-standalone', 'tachyon', 'rstudio', 'python3']
 
     if opts.hadoop_major_version == "1":
         modules = list(filter(lambda x: x != "mapreduce", modules))
@@ -1165,6 +1165,11 @@ def ssh(host, opts, command):
     tries = 0
     while True:
         try:
+            print("*******************************************************VICTOR **********************************")
+            print(ssh_command(opts) + ['-t', '-t', '%s@%s' % (opts.user, host),
+                                     stringify_command(command)])
+            print("*******************************************************VICTOR **********************************")
+
             return subprocess.check_call(
                 ssh_command(opts) + ['-t', '-t', '%s@%s' % (opts.user, host),
                                      stringify_command(command)])
